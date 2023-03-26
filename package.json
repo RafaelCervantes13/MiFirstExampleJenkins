@@ -1,0 +1,15 @@
+{
+  "name": "course",
+  "version": "1.0.0",
+  "description": "This a exercise that watch in the course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rafael Cervantes",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^9.6.1",
+    "cypress-xpath": "^2.0.1"
+  }
+}
