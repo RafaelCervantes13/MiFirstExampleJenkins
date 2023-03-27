@@ -6,6 +6,7 @@ describe('Nav Menus', () => {
 
             beforeEach(() => {
                 cy.visit('https://anons.army/');
+                
                
             })
 
