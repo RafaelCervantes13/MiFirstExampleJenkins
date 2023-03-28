@@ -2,8 +2,8 @@
 describe('Add products in ', () => {
 
   beforeEach(() => {
-    cy.visit('https://www.saucedemo.com/');
-    cy.typeLogin('standard_user', 'secret_sauce')
+    cy.visit('/');
+    cy.login('standard_user', 'secret_sauce')
   })
 
   it('Add product', () => {
