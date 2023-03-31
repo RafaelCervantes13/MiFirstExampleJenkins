@@ -6,7 +6,7 @@ describe('Fixtures demo', () => {
     })
 
     it('Test correct', () => {
-        cy.typeLogin('standard_user', 'secret_sauce')
+        cy.login('standard_user', 'secret_sauce')
         cy.logout();
     })
 

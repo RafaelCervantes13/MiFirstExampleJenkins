@@ -20,23 +20,21 @@ Cypress.Commands.add('addMultipleProducts', () => {
     })
 })
 
-Cypress.Commands.add('completeInputs', () => {  
+Cypress.Commands.add('completeInputs', () => {
     cy.get('.shopping_cart_link').click();
     cy.get('[data-test="checkout"]').click()
     cy.get('[data-test="firstName"]').type('Rafael')
     cy.get('[data-test="lastName"]').type('Cervantes')
     cy.get('[data-test="postalCode"]').type('55069')
     cy.get('[data-test="continue"]').click()
-   
+
 })
 Cypress.Commands.add('validatePrice', () => {
     cy.get('.summary_subtotal_label').then(function ($ele) {
         const priceProduct = parseFloat(($ele.text().split('$')[1]))
-        var priceProductD = priceProduct.toFixed(2); 
-        cy.log('priceProductD', priceProductD)
+        var priceProductD = priceProduct.toFixed(2);
         cy.get('.summary_tax_label').then(function ($ele) {
             const tax = parseFloat(($ele.text().split('$')[1]))
-            cy.log('tax', tax)
             cy.get('.summary_total_label').then(function ($ele) {
                 const total = parseFloat(($ele.text().split('$')[1]))
                 let suma = parseFloat(priceProductD) + parseFloat(tax);
@@ -45,3 +43,10 @@ Cypress.Commands.add('validatePrice', () => {
         })
     })
 })
+
+Cypress.Commands.add('validateFooter', () => {
+    cy.get('.footer').should('be.visible').then(function ($ele) {
+        const textFooter = $ele.text().split('©')[1];
+        expect(textFooter).contains('2023 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy')
+    });
+});

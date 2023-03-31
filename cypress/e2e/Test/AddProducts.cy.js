@@ -27,11 +27,41 @@ describe('Add products in ', () => {
   })
 
   it('Filter for...', () => {
-    cy.get('[data-test="product_sort_container"]').should('have.value', 'az')
-    cy.get('[data-test="product_sort_container"]').select('Name (Z to A)')
-    cy.scrollDownUp()
-    cy.get('[data-test="product_sort_container"]').select('Price (low to high)')
-    cy.scrollDownUp()
-    cy.get('[data-test="product_sort_container"]').select('Price (high to low)')
+
+    cy.get('[data-test="product_sort_container"]').select('Name (A to Z)').then(function () {
+      cy.get('#item_4_title_link > .inventory_item_name').then(function ($ele) {
+        const firstLetter = $ele.text().charAt(0);
+        expect(firstLetter).not.contains('Z');
+      })
+    })
+
+  cy.get('[data-test="product_sort_container"]').select('Name (Z to A)').then(function () {
+    cy.get('#item_4_title_link > .inventory_item_name').then(function ($ele) {
+      const firstLetter = $ele.text().charAt(0);
+      expect(firstLetter).not.contains('A');
+    })
   })
+
+  cy.scrollDownUp()
+  cy.get('[data-test="product_sort_container"]').select('Price (low to high)').then(function () {
+    cy.get(':nth-child(1) > .inventory_item_description').then(function ($ele) {
+      const minorProduct = parseFloat(($ele.text().split('$')[1]));
+      cy.get(':nth-child(6) > .inventory_item_description').then(function ($ele) {
+        const majorProduct = parseFloat(($ele.text().split('$')[1]));
+        expect(minorProduct).to.be.lessThan(majorProduct);
+
+      })
+    })
+  })
+  cy.scrollDownUp()
+  cy.get('[data-test="product_sort_container"]').select('Price (high to low)').then(function () {
+    cy.get(':nth-child(1) > .inventory_item_description').then(function ($ele) {
+      const majorProduct = parseFloat(($ele.text().split('$')[1]));
+      cy.get(':nth-child(6) > .inventory_item_description').then(function ($ele) {
+        const minorProduct = parseFloat(($ele.text().split('$')[1]));
+        expect(majorProduct).to.be.greaterThan(minorProduct);
+      })
+    })
+  })
+})
 })
