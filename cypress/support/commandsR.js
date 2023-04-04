@@ -15,8 +15,8 @@ Cypress.Commands.add('scrollDownUp', () => {
     cy.scrollTo('top', { duration: 2000 })
 })
 Cypress.Commands.add('addMultipleProducts', () => {
-    cy.get('.pricebar').each(($el, index) => {
-        cy.get('button').eq([index]).click()
+    cy.get('.pricebar').each(($ele, index) => { 
+        cy.wrap($ele).find("button").click()
     })
 })
 

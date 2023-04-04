@@ -1,5 +1,7 @@
 
 describe('Add products in ', () => {
+  
+  const credentials = require('../../fixtures/fixtures-demo/sauceCredentials.json');
 
   beforeEach(() => {
     cy.visit('/');
@@ -28,6 +30,8 @@ describe('Add products in ', () => {
 
   it('Filter for...', () => {
 
+    
+      //Validate filter of letter A
     cy.get('[data-test="product_sort_container"]').select('Name (A to Z)').then(function () {
       cy.get('#item_4_title_link > .inventory_item_name').then(function ($ele) {
         const firstLetter = $ele.text().charAt(0);
@@ -35,6 +39,7 @@ describe('Add products in ', () => {
       })
     })
 
+      //Validate filter of letter Z
   cy.get('[data-test="product_sort_container"]').select('Name (Z to A)').then(function () {
     cy.get('#item_4_title_link > .inventory_item_name').then(function ($ele) {
       const firstLetter = $ele.text().charAt(0);
@@ -43,6 +48,7 @@ describe('Add products in ', () => {
   })
 
   cy.scrollDownUp()
+  //Validate filter of price low
   cy.get('[data-test="product_sort_container"]').select('Price (low to high)').then(function () {
     cy.get(':nth-child(1) > .inventory_item_description').then(function ($ele) {
       const minorProduct = parseFloat(($ele.text().split('$')[1]));
@@ -55,6 +61,7 @@ describe('Add products in ', () => {
   })
   cy.scrollDownUp()
   cy.get('[data-test="product_sort_container"]').select('Price (high to low)').then(function () {
+      //Validate filter of price high
     cy.get(':nth-child(1) > .inventory_item_description').then(function ($ele) {
       const majorProduct = parseFloat(($ele.text().split('$')[1]));
       cy.get(':nth-child(6) > .inventory_item_description').then(function ($ele) {
